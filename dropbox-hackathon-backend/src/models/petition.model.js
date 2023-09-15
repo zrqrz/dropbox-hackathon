@@ -3,10 +3,16 @@ const mongoose = require('mongoose');
 const petitionSchema =  mongoose.Schema(
     {
         petitionName: String,
-        // signatureId: TBD,
-        // data: TBD
+        signRequestId: String,
+        signatures: [
+            {   
+                signatureId: String,
+                isUsed: Boolean
+            }
+        ],
+        data: String
     }
-)
+);
 
 const Petition = mongoose.model('Petition', petitionSchema);
 
