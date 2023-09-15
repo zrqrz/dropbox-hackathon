@@ -6,7 +6,6 @@ const fs = require('fs');
 
 const signatureRequestApi = new DropboxSign.SignatureRequestApi();
 
-
 /**
  * Generate Dropbox signature_id 
  * @param: signer name, emailAddress, pdf file
@@ -15,8 +14,6 @@ const signatureRequestApi = new DropboxSign.SignatureRequestApi();
 async function generateSignatureRequestResponse(username, email, petitionTitle) {
   // Configure HTTP basic authorization: api_key
   signatureRequestApi.username = process.env.DROPBOX_API_KEY;
-
-  // to be replaced by signer info from frontend
 
   const allSigners = [
     {
@@ -83,7 +80,6 @@ async function generateSignatureRequestResponse(username, email, petitionTitle) 
   try {
     const response = await signatureRequestApi.signatureRequestCreateEmbedded(data);
     return response.body.signatureRequest;
-    // return response.body.signatureRequest.signatures[0].signatureId;
   } catch (error) {
     console.log("Exception when calling Dropbox Sign API:");
     console.log(error.body);
@@ -122,7 +118,6 @@ async function downloadSignedPDFUri(signRequestId) {
     console.log(error.body);
   }
 }
-
 
 module.exports = {
   generateSignatureRequestResponse,

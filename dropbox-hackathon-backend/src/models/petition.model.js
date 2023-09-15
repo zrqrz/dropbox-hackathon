@@ -14,6 +14,7 @@ const petitionSchema =  mongoose.Schema(
     }
 );
 
+
 const Petition = mongoose.model('Petition', petitionSchema);
 
 module.exports = Petition;
