@@ -19,7 +19,7 @@ const defaultRoutes = [
   {
     path: '/petitions',
     route: petitionRoute,
-  }
+  },
 ];
 
 const devRoutes = [

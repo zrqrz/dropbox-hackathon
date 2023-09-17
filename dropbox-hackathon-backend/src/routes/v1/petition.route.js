@@ -9,8 +9,14 @@ router.route('/text').post(petitionController.createPetitionText);
 
 router.route('/allpetitions').get(petitionController.getAllPetitions);
 
-// router.route('/:id').get();
+router.route('/:id').get(petitionController.getPetition);
+
+router.route('/').get(petitionController.searchPetition); //search petitions by user input text
 
 router.route('/').put(petitionController.updatePDFInDB);
+
+router.route('/:id').put(petitionController.signPetition);
+
+router.route('/').put(petitionController.deletePetition);
 
 module.exports = router;
