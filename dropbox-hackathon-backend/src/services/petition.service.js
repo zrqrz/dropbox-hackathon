@@ -44,7 +44,8 @@ const updatePetitionById = async (petitionId, latestPDFUri, newSignatures) => {
 };
 
 const removePetitionById = async (petitionId) => {
-  Petition.findOneAndDelete({ _id: petitionId });
+  const petition = await Petition.findOneAndDelete({ _id: petitionId });
+  return petition;
 };
 
 /**

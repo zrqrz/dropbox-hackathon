@@ -16,7 +16,7 @@ const createPetition = catchAsync(async (req, res) => {
   const textPetition = req.body.petition;
 
   // 1. convert petition content to pdf file
-  convertService.convertToPDF(textPetition);
+  await convertService.convertToPDF(textPetition);
 
   // 2. get signature response from Dropbox
   const signatureResponse = await dropboxService.generateSignatureRequestResponse(name, email, petitionTitle);
