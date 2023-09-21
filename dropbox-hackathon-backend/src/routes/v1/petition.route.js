@@ -17,6 +17,6 @@ router.route('/').put(petitionController.updatePDFInDB);
 
 router.route('/:id').put(petitionController.signPetition);
 
-router.route('/').put(petitionController.deletePetition);
+router.route('/:id').delete(petitionController.deletePetition);
 
 module.exports = router;
