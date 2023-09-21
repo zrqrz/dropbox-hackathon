@@ -7,7 +7,7 @@ const fs = require('fs');
 const signatureRequestApi = new DropboxSign.SignatureRequestApi();
 
 /**
- * Generate Dropbox signature_id 
+ * Generate Dropbox signature_id
  * @param: signer name, emailAddress, pdf file
  * @returns signature_id
  */
@@ -21,56 +21,56 @@ async function generateSignatureRequestResponse(username, email, petitionTitle) 
       name: username,
     },
     {
-      emailAddress: "player1@gmail.com",
-      name: "player1",
+      emailAddress: 'player1@gmail.com',
+      name: 'player1',
     },
     {
-      emailAddress: "player2@gmail.com",
-      name: "player2",
+      emailAddress: 'player2@gmail.com',
+      name: 'player2',
     },
     {
-      emailAddress: "player3@gmail.com",
-      name: "player3",
+      emailAddress: 'player3@gmail.com',
+      name: 'player3',
     },
     {
-      emailAddress: "player4@gmail.com",
-      name: "player4",
+      emailAddress: 'player4@gmail.com',
+      name: 'player4',
     },
     {
-      emailAddress: "player5@gmail.com",
-      name: "player5",
+      emailAddress: 'player5@gmail.com',
+      name: 'player5',
     },
     {
-      emailAddress: "player6@gmail.com",
-      name: "player6",
+      emailAddress: 'player6@gmail.com',
+      name: 'player6',
     },
     {
-      emailAddress: "player7@gmail.com",
-      name: "player7",
+      emailAddress: 'player7@gmail.com',
+      name: 'player7',
     },
     {
-      emailAddress: "player8@gmail.com",
-      name: "player8",
+      emailAddress: 'player8@gmail.com',
+      name: 'player8',
     },
     {
-      emailAddress: "player9@gmail.com",
-      name: "player9",
-    }
-  ]
+      emailAddress: 'player9@gmail.com',
+      name: 'player9',
+    },
+  ];
 
   const signingOptions = {
     draw: true,
     type: true,
     upload: true,
     phone: true,
-    defaultType: "draw",
+    defaultType: 'draw',
   };
 
   const data = {
     clientId: process.env.DROPBOX_CLIENT_ID,
     title: petitionTitle,
-    subject: "Petition",
-    message: "Please sign this petition. Let me know if you have any questions.",
+    subject: 'Petition',
+    message: 'Please sign this petition. Let me know if you have any questions.',
     signers: allSigners,
     files: [fs.createReadStream('../dropbox-hackathon-backend/src/temp_files/tmpPetition.pdf')],
     signingOptions,
@@ -81,14 +81,14 @@ async function generateSignatureRequestResponse(username, email, petitionTitle) 
     const response = await signatureRequestApi.signatureRequestCreateEmbedded(data);
     return response.body.signatureRequest;
   } catch (error) {
-    console.log("Exception when calling Dropbox Sign API:");
+    console.log('Exception when calling Dropbox Sign API:');
     console.log(error.body);
   }
 }
 
 /**
  * Generate Dropbox signature_url
- * @param {*} signId 
+ * @param {*} signId
  * @returns signature_url to be displayed in frontend
  */
 async function generateSignUrl(signId) {
@@ -102,7 +102,7 @@ async function generateSignUrl(signId) {
     console.log(response.body);
     return response.body.embedded.signUrl;
   } catch (error) {
-    console.log("Exception when calling Dropbox Sign API:");
+    console.log('Exception when calling Dropbox Sign API:');
     console.log(error.body);
   }
 }
@@ -114,7 +114,7 @@ async function downloadSignedPDFUri(signRequestId) {
     const response = await signatureRequestApi.signatureRequestFilesAsDataUri(signatureRequestId);
     return response.body.dataUri;
   } catch (error) {
-    console.log("Exception when calling Dropbox Sign API:");
+    console.log('Exception when calling Dropbox Sign API:');
     console.log(error.body);
   }
 }
@@ -122,5 +122,5 @@ async function downloadSignedPDFUri(signRequestId) {
 module.exports = {
   generateSignatureRequestResponse,
   generateSignUrl,
-  downloadSignedPDFUri
+  downloadSignedPDFUri,
 };
