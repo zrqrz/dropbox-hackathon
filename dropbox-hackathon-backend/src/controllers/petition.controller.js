@@ -47,17 +47,25 @@ const updatePDFInDB = catchAsync(async (req, res) => {
   const latestPDFUri = await dropboxService.downloadSignedPDFUri(petitionData.signRequestId);
 
   // Update signature status
-  const newSignatures = petitionData.signatures.map((item) => {
+  // const newSignatures = petitionData.signatures.map((item) => {
+  //   if (item.signatureId === signId) {
+  //     return { ...item, isUsed: true };
+  //   }
+  //   return item;
+  // });
+  petitionData.signatures.forEach((item) => {
     if (item.signatureId === signId) {
       item.isUsed = true;
     }
   });
-  const updatedPetitionData = await petitionService.updatePetitionById(id, latestPDFUri, newSignatures);
+
+  //const updatedPetitionData = await petitionService.updatePetitionById(id, latestPDFUri, newSignatures);
+  const updatedPetitionData = await petitionService.updatePetitionById(id, latestPDFUri, petitionData.signatures);
   res.status(httpStatus.OK).send(updatedPetitionData);
 });
 
 const deletePetition = catchAsync(async (req, res) => {
-  const petitionId = req.body.petitionId;
+  const petitionId = req.params.id;
   petitionService.removePetitionById(petitionId);
   res.status(httpStatus.OK).send('petition removed!');
 });
@@ -87,11 +95,10 @@ const searchPetition = catchAsync(async (req, res) => {
 // Group Sign
 const signPetition = catchAsync(async (req, res) => {
   const petitionId = req.params.id;
-  const petition = await petitionService.getPetitionById(id);
-
+  const petition = await petitionService.getPetitionById(petitionId);
   //find the signatureId that is not signed yet
   const signId = petitionService.getUnsignedSignId(petition);
-  if (signId === undefined) {
+  if (!signId) {
     res.status(404).send('No more space to sign this petition!');
     return;
   }
