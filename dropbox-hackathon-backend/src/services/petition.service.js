@@ -43,9 +43,25 @@ const updatePetitionById = async (petitionId, latestPDFUri, newSignatures) => {
   return petition;
 };
 
+// const removePetitionById = async (petitionId) => {
+//   const petition = await Petition.findOneAndDelete({ _id: petitionId });
+//   return petition;
+// };
+
 const removePetitionById = async (petitionId) => {
-  const petition = await Petition.findOneAndDelete({ _id: petitionId });
-  return petition;
+  try {
+    console.log(petitionId);
+    const petition = await Petition.findOneAndDelete({ _id: petitionId });
+    if (!petition) {
+      console.log('Document not found!');
+    } else {
+      console.log('Deleted: ', petition);
+    }
+    return petition;
+  } catch (error) {
+    console.error('Error when delete: ', error);
+    throw error;
+  }
 };
 
 /**
@@ -66,12 +82,11 @@ const searchPetitionByText = async (text) => {
 
 const getUnsignedSignId = (petition) => {
   for (let signature of petition.signatures) {
-    if (signature.isUsed) {
-      const signId = signature.signatureId;
-      break;
+    if (!signature.isUsed) {
+      return signature.signatureId;
     }
   }
-  return signId;
+  return null;
 };
 
 module.exports = {
