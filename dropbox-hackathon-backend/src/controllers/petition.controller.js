@@ -23,7 +23,7 @@ const createPetition = catchAsync(async (req, res) => {
   const signId = signatureResponse.signatures[0].signatureId;
 
   // 3. save sign info to mongoDB and get cur petition ID
-  const newPetition = await petitionService.savePetition(signatureResponse, signId);
+  const newPetition = await petitionService.savePetition(signatureResponse, signId, textPetition);
   const petitionId = newPetition._id;
 
   // 4. generate signature_url
@@ -43,15 +43,15 @@ const updatePDFInDB = catchAsync(async (req, res) => {
   const signId = req.body.signId;
 
   const petitionData = await petitionService.getPetitionById(id);
+
   // Get pdf Uri from Dropbox
   const latestPDFUri = await dropboxService.downloadSignedPDFUri(petitionData.signRequestId);
 
   // Update signature status
   // const newSignatures = petitionData.signatures.map((item) => {
   //   if (item.signatureId === signId) {
-  //     return { ...item, isUsed: true };
+  //     item.isUsed = true;
   //   }
-  //   return item;
   // });
   petitionData.signatures.forEach((item) => {
     if (item.signatureId === signId) {

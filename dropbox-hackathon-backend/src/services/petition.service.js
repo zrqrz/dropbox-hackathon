@@ -4,7 +4,7 @@ const fs = require('fs');
 /**
  * Create a new petition and save it to database
  */
-const savePetition = async (signatureResponse, signId) => {
+const savePetition = async (signatureResponse, signId, petitionContent) => {
   const requestId = signatureResponse.signatureRequestId;
   const signArrayWithAllInfo = signatureResponse.signatures;
   // Extract only signatureId from Dropbox response
@@ -21,6 +21,7 @@ const savePetition = async (signatureResponse, signId) => {
 
   const newPetition = new Petition({
     petitionName: signatureResponse.title,
+    petitionContent: petitionContent,
     signRequestId: requestId,
     signatures: resultArray,
     data: null,
@@ -68,7 +69,7 @@ const removePetitionById = async (petitionId) => {
  * Get all petitions from database
  */
 const getPetitions = async () => {
-  const petitions = await Petition.find({}, { _id: 1, petitionName: 1, data: 1 });
+  const petitions = await Petition.find({}, { _id: 1, petitionName: 1, petitionContent: 1, data: 1 });
   return petitions;
 };
 

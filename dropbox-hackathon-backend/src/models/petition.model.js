@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const petitionSchema = mongoose.Schema({
   petitionName: String,
+  petitionContent: String,
   signRequestId: String,
   signatures: [
     {
@@ -12,7 +13,7 @@ const petitionSchema = mongoose.Schema({
   data: String,
 });
 
-petitionSchema.index({ petitionName: 'text', data: 'text' });
+petitionSchema.index({ petitionName: 'text' });
 
 const Petition = mongoose.model('Petition', petitionSchema);
 
