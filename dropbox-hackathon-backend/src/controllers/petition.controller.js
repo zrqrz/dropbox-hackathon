@@ -82,7 +82,8 @@ const getPetition = catchAsync(async (req, res) => {
 });
 
 const searchPetition = catchAsync(async (req, res) => {
-  const text = req.body.text;
+  // const text = req.body.text;
+  const text = req.query.text;
   const petitions = await petitionService.searchPetitionByText(text);
   // console.log('search succeed!!');
   if (Array.isArray(petitions) && petitions.length) {
