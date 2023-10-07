@@ -18,8 +18,7 @@ const generatePetition = async (petitionInfo) => {
     messages: [
       {
         role: 'user',
-        content:
-          'Generate a former petition based on title, organization, background and content for me. Remember to remove header and footer',
+        content: 'Generate a petition without header, footer, title, subtitle and sign-off',
       },
       {
         role: 'assistant',
