@@ -2,11 +2,14 @@ version: '3'
 
 services:
   node-app:
-    build: .
-    image: node-app
-    tty: true
+    # build: .
+    # image: node-app
+    # tty: true
+    image: zzzrq/dropbox-test:v1
+    # environment:
+    #   - MONGODB_URL=mongodb://mongodb:27017/node-boilerplate
     environment:
-      - MONGODB_URL=mongodb://mongodb:27017/node-boilerplate
+      - MONGODB_URL=mongodb+srv://zrq2839:testtest0283@petitiondb.dcp6cid.mongodb.net/?retryWrites=true&w=majority
     ports:
       - '3000:3000'
     depends_on:
