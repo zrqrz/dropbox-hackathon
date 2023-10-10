@@ -69,7 +69,7 @@ const removePetitionById = async (petitionId) => {
  * Get all petitions from database
  */
 const getPetitions = async () => {
-  const petitions = await Petition.find({}, { _id: 1, petitionName: 1, petitionContent: 1, data: 1 });
+  const petitions = await Petition.find({}, { _id: 1, petitionName: 1, petitionContent: 1, data: 1, signatures: 1 });
   return petitions;
 };
 
