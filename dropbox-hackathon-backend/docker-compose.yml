@@ -10,7 +10,7 @@ services:
     networks: 
       - node-network
     environment:
-      - REACT_APP_BACKEND_URL=http://18.218.149.183:3000
+      - REACT_APP_BACKEND_URL=http://18.216.112.25:3000
 
   node-app:
     # build: .
